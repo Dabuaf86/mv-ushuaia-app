@@ -3,7 +3,7 @@ import Head from "next/head";
 
 const Home: React.FC = () => {
   return (
-    <div className="container mx-auto p-4">
+    <div className="container">
       <Head>
         <title>MV/Ushuaia App</title>
         <meta name="description" content="MV/Ushuaia App for Antarctica Cruise" />
@@ -14,3 +14,4 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+

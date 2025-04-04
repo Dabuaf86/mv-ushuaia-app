@@ -1,6 +1,9 @@
+import ThemeSwitcher from "../components/ThemeSwitcher";
+
 const Header = () => {
     return (
-        <header className="w-full bg-blue-600 text-white py-4 px-6 shadow-md">
+        <header className="bg-gray-800 text-white p-4 shadow-md flex justify-between items-center h-16">
+            <ThemeSwitcher />
             <h1 className="text-xl font-bold">MV/Ushuaia App</h1>
         </header>
     );
