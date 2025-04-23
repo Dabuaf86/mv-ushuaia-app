@@ -8,22 +8,27 @@ import { auth } from "@/firebase/config";
 const Register = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [error, setError] = useState(false)
+    const [error, setError] = useState<string | null>(null)
     const router = useRouter()
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        setError(false)
+        setError(null)
         try {
             await createUserWithEmailAndPassword(auth, email, password)
-            sessionStorage.setItem('user', true)
+            sessionStorage.setItem('user', JSON.stringify(true)) // usar JSON.parse para recuperar el valor buleano. const isUser = JSON.parse(sessionStorage.getItem('user') || 'false');
             setEmail("")
             setPassword("")
 
             router.push("/")
-        } catch (error: any) {
-            setError(error.message)
-            console.error(error.message)
+        } catch (error) {
+            if (error instanceof Error) {
+                setError(error.message)
+                console.error(error.message)
+            } else {
+                setError('Ocurrió un error inesperado');
+                console.error('Ocurrió un error inesperado', error);
+            }
         }
     }
 
