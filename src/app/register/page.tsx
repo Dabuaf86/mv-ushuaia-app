@@ -2,24 +2,27 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/firebase/config";
+import { useAuth } from "@/context/AuthContext";
 
 const Register = () => {
+    const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState<string | null>(null)
+    const { register } = useAuth()
     const router = useRouter()
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setError(null)
+
         try {
-            await createUserWithEmailAndPassword(auth, email, password)
+            await register(email, password, name)
             sessionStorage.setItem('user', JSON.stringify(true)) // usar JSON.parse para recuperar el valor buleano. const isUser = JSON.parse(sessionStorage.getItem('user') || 'false');
+            setName("")
             setEmail("")
             setPassword("")
-
+            alert("Usuario registrado con éxito"); // CONVERTIR EN TOAST
             router.push("/")
         } catch (error) {
             if (error instanceof Error) {
@@ -38,10 +41,19 @@ const Register = () => {
                 <h2 className="text-2xl font-bold mb-5 text-gray-900 dark:text-white">Register</h2>
                 {error && <p className="text-red-500 mb-2">{error}</p>}
                 <input
+                    type="text"
+                    placeholder="Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                    className="w-full p-3 mb-4 bg-gray-700 rounded outline-none text-white placeholder-gray-500"
+                />
+                <input
                     type="email"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    required
                     className="w-full p-3 mb-4 bg-gray-700 rounded outline-none text-white placeholder-gray-500"
                 />
                 <input
@@ -49,6 +61,7 @@ const Register = () => {
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
                     className="w-full p-3 mb-4 bg-gray-700 rounded outline-none text-white placeholder-gray-500"
                 />
                 <button type="submit" className="w-full p-3 bg-indigo-600 rounded text-white hover:bg-indigo-500 disabled:opacity-50"
