@@ -7,6 +7,7 @@ import { AuthProvider } from "../context/AuthContext";
 import { AppThemeProvider } from "../context/AppThemeProvider";
 import ProtectedLayout from "./protected/ProtectedLayout";
 import { usePathname } from "next/navigation";
+import { ToastProvider } from "@/context/ToastContext";
 
 const inter = Inter({ subsets: ["latin"] })
 // export const metadata: Metadata = {
@@ -27,11 +28,13 @@ export default function RootLayout({
       <body className={`${inter.className} ${isAuthRoute ? "" : "dark"}`}>
         <AuthProvider>
           <AppThemeProvider>
-            {isAuthRoute ? (
-              children
-            ) : (
-              <ProtectedLayout>{children}</ProtectedLayout>
-            )}
+            <ToastProvider>
+              {isAuthRoute ? (
+                children
+              ) : (
+                <ProtectedLayout>{children}</ProtectedLayout>
+              )}
+            </ToastProvider>
           </AppThemeProvider>
         </AuthProvider>
       </body>
