@@ -4,7 +4,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { AuthProvider } from "../context/AuthContext";
-import { Providers } from "../context/providers";
+import { AppThemeProvider } from "../context/AppThemeProvider";
 import ProtectedLayout from "./protected/ProtectedLayout";
 import { usePathname } from "next/navigation";
 
@@ -20,19 +20,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname()
+  const isAuthRoute = pathname === "/login" || pathname === "/register"
+
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <Providers>
-          <AuthProvider>
-            {pathname === "/login" || pathname === "/register" ? (
+      <body className={`${inter.className} ${isAuthRoute ? "" : "dark"}`}>
+        <AuthProvider>
+          <AppThemeProvider>
+            {isAuthRoute ? (
               children
             ) : (
               <ProtectedLayout>{children}</ProtectedLayout>
             )}
-          </AuthProvider>
-        </Providers>
+          </AppThemeProvider>
+        </AuthProvider>
       </body>
-    </html>
+    </html >
   );
 }
