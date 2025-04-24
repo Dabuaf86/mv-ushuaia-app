@@ -16,21 +16,22 @@
   }
 }
 
-@layer components {
-  .container {
-    @apply w-full max-w-6xl mx-auto p-4;
-  }
-
+@layer base {
   body {
     margin: 0;
     font-family: sans-serif;
     @apply bg-gray-100 text-gray-900 transition-colors duration-300;
   }
 
-  .dark body {
-  @apply bg-gray-900 text-gray-100 !important;
+  html.dark body {
+    @apply bg-gray-900 text-gray-100;
   }
+}
 
+@layer components {
+  .container {
+    @apply w-full max-w-6xl mx-auto p-4 bg-white dark:bg-gray-800;
+  }
 }
 
 @layer utilities {
@@ -38,19 +39,7 @@
     @apply text-slate-900 dark:text-white;
   }
 
-  .text--colors_primary {
-    @apply text-blue-500 dark:text-blue-300;
-  }
-
   .bg--default {
-    @apply bg-white dark:bg-slate-900;
+    @apply bg-white dark:bg-slate-800;
   }
-}
-
-main {
-    transition: margin-left 0.3s ease-in-out;
-}
-
-aside {
-    transition: transform 0.3s ease-in-out;
 }

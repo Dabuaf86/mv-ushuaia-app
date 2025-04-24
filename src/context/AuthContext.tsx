@@ -42,8 +42,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     // };
 
     const login = async (email: string, password: string) => {
-        const userLoggingInfo = await signInWithEmailAndPassword(auth, email, password);
-        console.log("USUARIO: ", userLoggingInfo)
+        // const userLoggingInfo = 
+        await signInWithEmailAndPassword(auth, email, password);
+        // console.log("USUARIO: ", userLoggingInfo)
         router.push("/");
     };
 
