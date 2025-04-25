@@ -1,14 +1,12 @@
 import { FiMenu, FiX } from "react-icons/fi";
+import { useSidebar } from "@/context/SidebarContext";
 
-type MenuProps = {
-    isOpen: boolean;
-    toggleSidebar: () => void;
-};
+const Menu: React.FC = () => {
+    const { isOpen, toggleSidebar } = useSidebar();
 
-const Menu: React.FC<MenuProps> = ({ isOpen, toggleSidebar }) => {
     return (
         <button
-            className="p-2 rounded-md bg-gray-800 text-white hover:bg-gray-700 focus:outline-none"
+            className="p-2 rounded-md hover:bg-gray-700 focus:outline-none"
             onClick={toggleSidebar}
         >
             {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}

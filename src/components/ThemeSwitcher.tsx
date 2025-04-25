@@ -6,25 +6,26 @@ import { useTheme } from "next-themes";
 
 export default function ThemeSwitcher() {
     const [mounted, setMounted] = useState(false);
-    const { resolvedTheme, theme, setTheme } = useTheme();
+    const { resolvedTheme, setTheme } = useTheme();
 
     useEffect(() => setMounted(true), []);
 
     if (!mounted) return <>...</>;
 
-    return <button
-        onClick={() => {
-            setTheme(resolvedTheme === "light" ? "dark" : "light")
-        }}
-        type="button"
-        className="rounded-md p-s mr-2 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700"
-    >
-        {theme === "light" ?
-            <MoonIcon size={24} />
-            :
-            <SunIcon size={24} />
-        }
-    </button>
+    return (
+        <button
+            onClick={() => {
+                setTheme(resolvedTheme === "light" ? "dark" : "light")
+            }}
+            type="button"
+            className="rounded-md p-s mr-2 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700"
+        >
+            {resolvedTheme === "light" ?
+                <MoonIcon size={24} />
+                :
+                <SunIcon size={24} />
+            }
+        </button>)
 }
 
 ////////////////////////////////////
