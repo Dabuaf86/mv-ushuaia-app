@@ -5,14 +5,15 @@ import { useAuth } from "@/context/AuthContext";
 import { CmsSection } from '@/interfaces/cmsSection'
 import { getAllCmsSections } from "@/scripts/cms";
 import Link from "next/link";
-import { SidebarProps } from "@/interfaces/sidebar"
 import Spinner from "./ui/Spinner";
+import ThemeSwitcher from "./ThemeSwitcher";
+import { useSidebar } from "@/context/SidebarContext";
 
-
-const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
+const Sidebar: React.FC = () => {
     const [sections, setSections] = useState<CmsSection[]>([])
     const [loading, setLoading] = useState(true)
     const { logout } = useAuth()
+    const { isOpen } = useSidebar()
 
     useEffect(() => {
         async function loadData() {
@@ -27,15 +28,19 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
 
     return (
         <aside
-            className={`16 left-0 h-[calc(100vh-4rem)] bg-gray-900 text-white w-64 transform transition-transform duration-300 ${isOpen ? "translate-x-0" : "-translate-x-full"
-                } z-50`}
+            className={`fixed top-16 left-0 h-[calc(100vh-4rem)] w-64 transform transition-transform duration-300 bg-gray-800 text-white z-40 ${isOpen ? "translate-x-0" : "-translate-x-full"
+                }`}
         >
-            <div className="p-4">
+            <div className="p-4 flex flex-col gap-4">
+                <span>
+                    <ThemeSwitcher />
+                </span>
                 {
                     sections.length > 0 ? (
-                        <ul className={`bg-gray-800 text-white p-4`}>
+                        <ul className='flex flex-col gap-2'>
                             {sections.map(({ id, value }) => (
-                                <li key={id} className="p-2 hover:bg-gray-700 rounded">
+                                <li key={id} className="flex items-center gap-2 p-2 hover:bg-gray-700 rounded">
+                                    <span className="icon">📄</span>
                                     <Link href={`/${value}`}>
                                         {value}
                                     </Link>

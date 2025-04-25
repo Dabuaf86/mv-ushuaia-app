@@ -8,6 +8,7 @@ import { AppThemeProvider } from "../context/AppThemeProvider";
 import ProtectedLayout from "./protected/ProtectedLayout";
 import { usePathname } from "next/navigation";
 import { ToastProvider } from "@/context/ToastContext";
+import { SidebarProvider } from "@/context/SidebarContext";
 
 const inter = Inter({ subsets: ["latin"] })
 // export const metadata: Metadata = {
@@ -25,18 +26,22 @@ export default function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} ${isAuthRoute ? "" : "dark"}`}>
-        <AuthProvider>
-          <AppThemeProvider>
-            <ToastProvider>
-              {isAuthRoute ? (
-                children
-              ) : (
-                <ProtectedLayout>{children}</ProtectedLayout>
-              )}
-            </ToastProvider>
-          </AppThemeProvider>
-        </AuthProvider>
+      <body className={inter.className}>
+        <ToastProvider>
+          <AuthProvider>
+            <AppThemeProvider>
+              <SidebarProvider>
+                {isAuthRoute ? (
+                  children
+                ) : (
+                  <ProtectedLayout>
+                    {children}
+                  </ProtectedLayout>
+                )}
+              </SidebarProvider>
+            </AppThemeProvider>
+          </AuthProvider>
+        </ToastProvider>
       </body>
     </html >
   );

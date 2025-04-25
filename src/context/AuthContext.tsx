@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect, ReactNode } from "react
 import { useRouter } from "next/navigation";
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { auth, db } from "../firebase/config";
-import { AuthContextType } from "@/interfaces/authContextProps";
+import { AuthContextType } from "@/interfaces/authContext";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { User } from "@/interfaces/user";
 
