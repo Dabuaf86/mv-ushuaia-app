@@ -24,6 +24,10 @@ const Sidebar: React.FC = () => {
         loadData()
     }, [])
 
+    const capitalizeFirstLetter = (section: string) => {
+        return section.charAt(0).toUpperCase() + section.slice(1);
+    }
+
     if (loading) return <Spinner />
 
     return (
@@ -42,7 +46,7 @@ const Sidebar: React.FC = () => {
                                 <li key={id} className="flex items-center gap-2 p-2 hover:bg-gray-700 rounded">
                                     <span className="icon">📄</span>
                                     <Link href={`/${value}`}>
-                                        {value}
+                                        {capitalizeFirstLetter(value)}
                                     </Link>
                                 </li>
                             ))}
