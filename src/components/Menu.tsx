@@ -6,7 +6,7 @@ const Menu: React.FC = () => {
 
     return (
         <button
-            className="p-2 rounded-md hover:bg-gray-700 focus:outline-none"
+            className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none"
             onClick={toggleSidebar}
         >
             {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
