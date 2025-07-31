@@ -9,7 +9,7 @@ export function AppThemeProvider({ children }:
 
     const { theme, setTheme } = useTheme()
     const pathname = usePathname()
-    const isAuthRoute = pathname === "/login" || pathname === "/register"
+    const isAuthRoute = pathname === "/login" || pathname === "/register" || pathname === "/reset-password"
 
     useEffect(() => {
         if (!isAuthRoute) {

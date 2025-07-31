@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import Link from "next/link"
 
 const Register = () => {
     const [name, setName] = useState("")
@@ -11,6 +12,12 @@ const Register = () => {
     const [error, setError] = useState<string | null>(null)
     const { register } = useAuth()
     const router = useRouter()
+    const { user } = useAuth()
+
+
+    useEffect(() => {
+        if (user) router.push("/")
+    }, [user, router])
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -64,9 +71,14 @@ const Register = () => {
                     required
                     className="w-full p-3 mb-4 bg-gray-700 rounded outline-none text-white placeholder-gray-500"
                 />
-                <button type="submit" className="w-full p-3 bg-indigo-600 rounded text-white hover:bg-indigo-500 disabled:opacity-50"
+                <button type="submit" className="w-full p-3 bg-blue-600 rounded text-white hover:bg-indigo-500 disabled:opacity-50"
                     disabled={!email || !password}
                 >Register</button>
+                <div className="mt-4 text-center">
+                    <Link href="/login" className="text-blue-600 hover:underline">
+                        Volver al login
+                    </Link>
+                </div>
             </form>
         </div>
     )

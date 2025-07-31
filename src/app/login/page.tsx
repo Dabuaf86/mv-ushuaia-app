@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Login = () => {
     const [email, setEmail] = useState("") // Luego cambiar a login con last name, voyage code y pass
@@ -65,6 +66,14 @@ const Login = () => {
                 <button type="submit" className="w-full p-3 rounded bg-blue-600 text-white hover:bg-blue-500 disabled:opacity-50"
                     disabled={!email || !password}
                 >Login</button>
+                <div className="mt-4 flex flex-col items-center gap-2">
+                    <Link href="/reset-password" className="text-blue-600 hover:underline">
+                        ¿Olvidaste tu contraseña?
+                    </Link>
+                    <Link href="/register" className="text-blue-600 hover:underline">
+                        ¿No tienes una cuenta? Regístrate
+                    </Link>
+                </div>
             </form>
         </div>
     )
