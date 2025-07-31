@@ -1,8 +1,8 @@
 import React from "react";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 
 const Home: React.FC = () => {
-  redirect("/home");
+  // redirect("/home");
   return null; // Prevents rendering the rest of the component if redirecting
 
 };
